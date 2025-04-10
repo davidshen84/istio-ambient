@@ -1,0 +1,24 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ include "my-app.fullname" . }}
+spec:
+  targetRefs:
+    - kind: Gateway
+      group: gateway.networking.k8s.io
+      name: {{ include "my-app.fullname" . }}
+    - kind: Gateway
+      group: gateway.networking.k8s.io
+      name: {{ include "my-app.fullname" . }}-waypoint
+    - kind: Service
+      group: ""
+      name: {{ include "my-app.fullname" . }}
+    - kind: Service
+      group: ""
+      name: {{ include "my-app.fullname" . }}-waypoint
+
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            methods: ["GET"]

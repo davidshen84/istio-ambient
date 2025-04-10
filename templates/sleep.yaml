@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleep
+  namespace: default
+  labels:
+    app: sleep
+    istio.io/dataplane-mode: ambient
+spec:
+  containers:
+  - name: sleep
+    image: curlimages/curl
+    command: ["/bin/sleep", "3650d"]
+    resources:
+      requests:
+        memory: "32Mi"
+        cpu: "100m"
+      limits:
+        memory: "64Mi"
+        cpu: "200m"
