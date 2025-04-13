@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: sleep
-  namespace: default
+  # namespace: default
   labels:
     app: sleep
     istio.io/dataplane-mode: ambient
+    istio.io/use-waypoint: {{ include "my-app.fullname" . }}-waypoint
 spec:
   containers:
   - name: sleep
